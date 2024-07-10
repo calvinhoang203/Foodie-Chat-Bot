@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> <!-- Define the character encoding for the document -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Set the viewport to ensure proper scaling on mobile devices -->
+  <title>Chatbot</title> <!-- Title of the webpage -->
+  <link rel="stylesheet" href="style.css"> <!-- Link to the external CSS file for styling -->
+</head>
+<body>
+  <!-- Container for the chat interface -->
+  <div class="chat-container">
+    <!-- Div to display the chat messages -->
+    <div id="chat-box"></div>
+    <!-- Container for the input field and send button -->
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Type something" autofocus onkeydown="checkEnter(event)"> <!-- Input field for user messages, auto-focused with an event listener for the Enter key -->
+      <button onclick="sendMessage()">Send</button> <!-- Send button with an onclick event listener to send the message -->
+    </div>
+  </div>
+  <!-- Script containing the JavaScript functions to handle the chat functionality -->
+  <script>
+    // Function to send the user's message
+    async function sendMessage() {
+      const inputField = document.getElementById('user-input'); // Get the input field element
+      const message = inputField.value.trim(); // Trim whitespace from the input
+      if (message === "") return; // If the message is empty, do nothing
+
+      appendMessage("You", message, 'user'); // Append the user's message to the chat
+      inputField.value = ''; // Clear the input field
+
+      try {
+        // Send the message to the server using fetch API
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json' // Specify the content type as JSON
+          },
+          body: JSON.stringify({ message }) // Send the message in the request body as JSON
+        });
+
+        const data = await response.json(); // Parse the response as JSON
+        appendMessage("Bot", data.reply, 'bot'); // Append the bot's reply to the chat
+      } catch (error) {
+        console.error('Error sending message:', error); // Log any errors that occur
+      }
+    }
+
+    // Function to append a message to the chat box
+    function appendMessage(sender, message, senderClass) {
+      const chatBox = document.getElementById('chat-box'); // Get the chat box element
+      const messageElement = document.createElement('div'); // Create a new div element for the message
+      messageElement.classList.add('message', senderClass); // Add the appropriate classes to the message element
+      messageElement.innerHTML = `<strong>${sender}:</strong> ${message.replace(/\n/g, '<br>')}`; // Set the inner HTML of the message element, replacing newlines with <br> tags
+      chatBox.appendChild(messageElement); // Append the message element to the chat box
+      chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom of the chat box
+    }
+
+    // Function to check if the Enter key is pressed in the input field
+    function checkEnter(event) {
+      if (event.key === "Enter") { // If the key pressed is Enter
+        sendMessage(); // Call the sendMessage function
+      }
+    }
+  </script>
+</body>
+</html>

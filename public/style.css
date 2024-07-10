@@ -1,0 +1,98 @@
+/* Styling for the entire body of the HTML */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #d57d22;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+
+/* Styling for the chat container */
+  .chat-container {
+    width: 60%;
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  /* Styling for the chat box */
+  #chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-image: url('images/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* Styling for individual messages */
+  .message {
+    margin: 10px 0;
+    padding: 15px 20px;
+    border-radius: 15px;
+    max-width: 80%;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    position: relative;
+    word-wrap: break-word;
+  }
+  
+  /* Additional styling for user messages */
+  .message.user {
+    align-self: flex-end;
+    background-color: #d57d22;
+    color: black;
+  }
+  
+  /* Additional styling for bot messages */
+  .message.bot {
+    align-self: flex-start;
+    background-color: #e4e6eb;
+    color: black;
+  }
+  
+  /* Styling for the input container */
+  .input-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ccc;
+  }
+  
+  /* Styling for the user input */
+  #user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+  
+  /* Styling the send button */
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #d57d22;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  
+  /* Hover effect for the send button */
+  button:hover {
+    background-color: #d57d22;
+  }
+  
